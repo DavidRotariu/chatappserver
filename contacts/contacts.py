@@ -11,8 +11,6 @@ contacts_router = APIRouter()
 @contacts_router.get("/api/contacts")
 def get_all_contacts():
     users = fake_db.get("users", {}).values()
-    for user in users:
-        print(user)
     return list(users)
 
 
