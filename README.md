@@ -1,2 +1,2 @@
-# chatappserver
-a simple server for mychatapp
+# chathubserver
+A simple server for ChatHub
