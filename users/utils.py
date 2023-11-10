@@ -16,6 +16,7 @@ def get_user_data(user_data):
     return None
 
 
+
 def create_user(data):
     users = fake_db.get("users", {})
 
