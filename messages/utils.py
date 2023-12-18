@@ -1,34 +1,46 @@
 import json
+from datetime import datetime
 from uuid import uuid4
-import time
-from storage.fake_db import fake_db
+from storage.db import db
 
 
 def create_new_message(message_data):
 
-    messages = fake_db.get("messages", {})
-
+    messages = db.get_messages()
     message_dict = message_data.model_dump()
     message_id = str(uuid4())
-    t = time.localtime()
-    current_time = time.strftime("%H:%M", t)
+
+    time = datetime.now()
+    hour = time.hour
+    date = time.date()
+    if len(str(time.minute)) == 1:
+        minute = f"0{time.minute}"
+    else:
+        minute = time.minute
 
     message_dict["id"] = message_id
     messages[message_id] = message_dict
-    message_dict["time"] = current_time
+    message_dict["time"] = f"{date}    {hour}:{minute}"
+    message_dict["name"] = "message"
 
-    with open("storage/messages.json", "w") as file:
-        json.dump(messages, file, default=str)
+    db.create_message(
+        message_id=message_dict["id"],
+        discussion_id=message_dict["discussion_id"],
+        user_id=message_dict["user_id"],
+        value=message_dict["value"],
+        created_at=message_dict["time"],
+        name=message_dict["name"])
 
     return message_dict
 
 
 def get_messages_by_discussion_id(my_user_id, discussion_id):
-    messages = list(fake_db.get("messages", {}).values())
-    users_dict = fake_db.get("users", {})
+    messages = db.get_messages()
+    users_dict = db.get_users()
 
     message_list = []
-    for message in messages:
+    for key in messages:
+        message = messages[key]
         if message.get("discussion_id") == discussion_id:
             user_id = message.get("user_id")
             if user_id == my_user_id:
