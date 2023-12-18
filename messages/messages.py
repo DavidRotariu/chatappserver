@@ -4,7 +4,6 @@ from fastapi import HTTPException
 from messages.models import Messages
 from messages.utils import create_new_message, get_messages_by_discussion_id
 from storage.db import db
-from storage.fake_db import fake_db
 from websocket.manager import ConnectionManager
 
 message_router = APIRouter()
