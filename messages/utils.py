@@ -1,6 +1,6 @@
 import json
 from uuid import uuid4
-
+import time
 from storage.fake_db import fake_db
 
 
@@ -10,13 +10,17 @@ def create_new_message(message_data):
 
     message_dict = message_data.model_dump()
     message_id = str(uuid4())
+    t = time.localtime()
+    current_time = time.strftime("%H:%M", t)
 
     message_dict["id"] = message_id
-
     messages[message_id] = message_dict
+    message_dict["time"] = current_time
 
     with open("storage/messages.json", "w") as file:
         json.dump(messages, file, default=str)
+
+    return message_dict
 
 
 def get_messages_by_discussion_id(my_user_id, discussion_id):

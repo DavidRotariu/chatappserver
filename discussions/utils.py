@@ -54,7 +54,3 @@ def get_discussions(user_id):
             discussion_list.append(discussion)
 
     return discussion_list
-
-
-def remove_duplicate_contacts(contacts):
-    return [contact for index, contact in enumerate(contacts) if contact not in contacts[:index]]

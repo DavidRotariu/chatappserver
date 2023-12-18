@@ -6,3 +6,4 @@ class Messages(BaseModel):
     discussion_id: str
     user_id: str
     value: str
+    type: str = None

@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi import HTTPException
 
 from discussions.models import Discussions
-from discussions.utils import get_contact_discussions, create_new_discussion, get_discussions, remove_duplicate_contacts
+from discussions.utils import get_contact_discussions, create_new_discussion, get_discussions
 from storage.fake_db import fake_db
 
 discussions_router = APIRouter()
